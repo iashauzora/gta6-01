@@ -3,17 +3,67 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Block Dodger</title>
-<style>
-  html, body { margin: 0; height: 100%; overflow: hidden; background: #11141b; }
-  #game { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
-  /* Read aloud, never shown: the status line screen readers announce. */
-  #status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-</style>
+<title>Coral Bay — Dario's Run</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ffd94d'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="./styles.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
 </head>
 <body>
-<canvas id="game" aria-label="Block Dodger: move the paddle left and right to dodge falling blocks and catch coins"></canvas>
+<canvas id="game" aria-label="Coral Bay: a 3D open-world crime game"></canvas>
+
+<div id="hud" hidden>
+  <div id="top-left">
+    <div id="health-bar"><div id="health-fill"></div></div>
+    <div id="stars">☆☆☆☆☆</div>
+  </div>
+  <div id="top-right">
+    <div id="cash">$0</div>
+    <canvas id="minimap" width="176" height="176"></canvas>
+  </div>
+  <div id="objective"></div>
+  <div id="crosshair" hidden>+</div>
+  <div id="prompt"></div>
+  <div id="toast"></div>
+  <div id="dialogue" style="opacity:0">
+    <div id="dialogue-who"></div>
+    <div id="dialogue-text"></div>
+  </div>
+  <div id="big-title" style="opacity:0"></div>
+  <div id="big-subtitle" style="opacity:0"></div>
+  <div id="vignette"></div>
+</div>
+
+<div id="start-screen" class="screen">
+  <h1>CORAL&nbsp;BAY</h1>
+  <p class="tagline">Dario Vega did six years for a job he didn't finish. Now he's home,
+  broke, and one favour away from owning the bay — or leaving it in a boat at dawn.</p>
+  <div class="controls">
+    <span><b>W A S D</b> move / drive</span><span><b>Mouse</b> look (click to lock)</span>
+    <span><b>Shift</b> sprint</span><span><b>E</b> steal / enter / exit car</span>
+    <span><b>Click / F</b> punch</span><span><b>Click with pistol</b> shoot</span>
+    <span><b>Space</b> handbrake</span><span><b>P / Esc</b> pause</span><span><b>M</b> mute</span>
+  </div>
+  <button id="btn-new">NEW GAME</button>
+  <button id="btn-continue">CONTINUE</button>
+  <p id="continue-note"></p>
+</div>
+
+<div id="pause-screen" class="screen" hidden>
+  <h1>PAUSED</h1>
+  <p class="tagline">The bay waits. It always waits.</p>
+  <button id="btn-resume">RESUME</button>
+  <button id="btn-restart">RESTART STORY</button>
+</div>
+
+<div id="end-screen" class="screen" hidden>
+  <h1 id="end-title">BUSTED</h1>
+  <p id="end-text" class="tagline"></p>
+  <button id="btn-respawn">BACK ON THE STREET</button>
+</div>
+
 <p id="status" role="status" aria-live="polite"></p>
-<script type="module" src="./src/main.js"></script>
+<script type="module" src="./src/game.js"></script>
 </body>
 </html>

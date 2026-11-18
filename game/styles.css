@@ -1,0 +1,52 @@
+/* Coral Bay's screen furniture: a sun-bleached HUD over the 3D canvas, chunky title
+   screens, a dialogue box at the bottom, and the red damage vignette. */
+
+html, body { margin: 0; height: 100%; overflow: hidden; background: #0d141b; font-family: 'Segoe UI', system-ui, sans-serif; }
+#game { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+#status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+#hud { position: fixed; inset: 0; pointer-events: none; z-index: 3; }
+#top-left { position: absolute; top: 16px; left: 16px; }
+#health-bar { width: 210px; height: 16px; background: rgba(0,0,0,0.55); border: 2px solid rgba(255,255,255,0.6); border-radius: 4px; overflow: hidden; }
+#health-fill { height: 100%; width: 100%; background: #59d669; transition: width 0.2s; }
+#stars { font-size: 26px; letter-spacing: 3px; color: rgba(255,255,255,0.25); text-shadow: 0 2px 4px rgba(0,0,0,0.7); margin-top: 4px; }
+#top-right { position: absolute; top: 16px; right: 16px; text-align: right; }
+#cash { font-size: 30px; font-weight: 800; color: #7de08a; text-shadow: 0 2px 5px rgba(0,0,0,0.8); margin-bottom: 8px; }
+#minimap { border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.55); }
+
+#objective { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); max-width: 560px; text-align: center;
+  font-size: 19px; font-weight: 700; color: #ffe9a8; text-shadow: 0 2px 5px rgba(0,0,0,0.85);
+  background: rgba(10,16,22,0.45); padding: 7px 16px; border-radius: 6px; transition: opacity 0.3s; }
+#crosshair { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 26px; font-weight: 300;
+  color: rgba(255,255,255,0.85); text-shadow: 0 0 4px rgba(0,0,0,0.9); }
+#prompt { position: absolute; bottom: 128px; left: 50%; transform: translateX(-50%); font-size: 20px; font-weight: 700;
+  color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,0.9); background: rgba(10,16,22,0.55); padding: 6px 14px; border-radius: 6px; transition: opacity 0.2s; }
+#toast { position: absolute; bottom: 178px; left: 50%; transform: translateX(-50%); font-size: 18px; font-weight: 700; color: #a8ffc0;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.9); opacity: 0; transition: opacity 0.3s; }
+
+#dialogue { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); width: min(680px, 86vw);
+  background: rgba(8,12,18,0.82); border-left: 5px solid #ffd94d; border-radius: 6px; padding: 10px 16px; transition: opacity 0.25s; }
+#dialogue-who { color: #ffd94d; font-weight: 800; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; }
+#dialogue-text { color: #f4f6f8; font-size: 18px; margin-top: 2px; }
+
+#big-title { position: absolute; top: 30%; left: 0; right: 0; text-align: center; font-size: 54px; font-weight: 900;
+  letter-spacing: 4px; color: #fff; text-shadow: 0 4px 18px rgba(0,0,0,0.8), 0 0 42px rgba(255,180,60,0.45); transition: opacity 0.5s; }
+#big-subtitle { position: absolute; top: calc(30% + 74px); left: 0; right: 0; text-align: center; font-size: 21px; font-weight: 700;
+  color: #ffe9a8; text-shadow: 0 2px 8px rgba(0,0,0,0.85); transition: opacity 0.5s; }
+
+#vignette { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.25s;
+  background: radial-gradient(ellipse at center, transparent 52%, rgba(200,10,10,0.55) 100%); }
+
+.screen { position: fixed; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: linear-gradient(180deg, rgba(16,42,66,0.88), rgba(10,18,28,0.94)); color: #f4f6f8; text-align: center; padding: 20px; }
+.screen[hidden] { display: none; }
+.screen h1 { font-size: 64px; font-weight: 900; letter-spacing: 6px; margin: 0 0 10px; color: #ffd94d; text-shadow: 0 4px 22px rgba(0,0,0,0.7); }
+.screen .tagline { max-width: 620px; font-size: 18px; line-height: 1.45; color: #dbe7f2; }
+.screen .controls { display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: center; max-width: 680px; margin: 14px 0 22px; font-size: 14.5px; color: #b9c9d8; }
+.screen .controls b { color: #fff; }
+.screen button { pointer-events: auto; cursor: pointer; margin: 5px; padding: 13px 34px; font-size: 19px; font-weight: 800; letter-spacing: 1px;
+  color: #12202e; background: #ffd94d; border: none; border-radius: 7px; box-shadow: 0 4px 14px rgba(0,0,0,0.45); }
+.screen button:hover { background: #ffe27a; }
+.screen button:disabled { background: #5a6672; color: #aeb9c4; cursor: default; }
+#continue-note { font-size: 14px; color: #9fb4c6; min-height: 18px; }
+#end-screen h1 { color: #ff5a4d; }
